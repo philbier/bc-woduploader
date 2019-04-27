@@ -1,15 +1,20 @@
 const fetch = require("node-fetch");
-
+var bodyParser = require('body-parser');
 const url = 'https://boxchamp.io/';
-const username = 'phillip.biermann@outlook.de';
-const password = 'xsGRSw';
+const email = 'phillip.biermann@outlook.de';
+const password = '123';
 
-//Start BoxChamp Main Page
-fetch(url, {
-    method:'GET',
-    headers: {
-        "Content-Type": "text/html"
-    }
-})
-.then(response => console.log(response))
-.catch(error => console.log(error));
+postForm(url)
+.then(data => console.log(data))
+.catch(error => console.error(error))
+
+function postForm(url) {
+    return fetch(url, {
+        method: 'POST', // or 'PUT'
+        body: {
+            email: email,
+            password: password
+        }
+    })
+    .then(response => response.text())
+}
